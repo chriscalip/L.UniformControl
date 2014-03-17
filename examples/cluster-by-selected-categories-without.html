@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cluster by Selected Categories. without uniform.js</title>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="//leafletjs.com/dist/leaflet.css" />
+  <link rel="stylesheet"
+      href="//cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+  <script src="//cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <link href='//leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css' rel='stylesheet' />
+  <link href='//leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css' rel='stylesheet' />
+  <script src='//leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js'></script>
+</head>
+<h3>Cluster by Selected Categories. without uniform.js</h3>
+<a href="index.html">Back to table of contents</a>
+<body>
+  <div id="map" style="width: 600px; height: 400px"></div>
+<script>
+function getRandomLatLng(map) {
+    var bounds = map.getBounds(),
+        southWest = bounds.getSouthWest(),
+        northEast = bounds.getNorthEast(),
+        lngSpan = northEast.lng - southWest.lng,
+        latSpan = northEast.lat - southWest.lat;
+
+    return new L.LatLng(
+            southWest.lat + latSpan * Math.random(),
+            southWest.lng + lngSpan * Math.random());
+}
+function markersToGroup(group, map) {
+    return function (response) {
+        var marker = L.marker(getRandomLatLng(map));
+        marker.addTo(group);
+    }
+}
+function main_execute() {
+    var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
+
+    var mapnik = L.tileLayer(
+            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            , {attribution: attribution}
+    )
+    var map = L.map('map', {
+        center: new L.LatLng(41.878247, -87.629767), zoom: 7, layers: [mapnik]
+    });
+    var markers = new L.MarkerClusterGroup();
+    var categories = {},
+        categories_meta = {},
+        overlayMaps = {},
+        markers_category = {},
+        leaflet_meta = {},
+        random_category_index = '';
+    var categories = {
+        'Category 1' :  new L.layerGroup().addTo(map),
+        'Category 2' :  new L.layerGroup().addTo(map),
+        'Category 3' :  new L.layerGroup().addTo(map),
+        'Category A' :  new L.layerGroup().addTo(map)
+    };
+    for(var index in categories) {
+        markers_category[index] = [];
+        overlayMaps[index] = categories[index];
+    }
+    for (var i=0; i<12; i++) {
+        var marker = L.marker(getRandomLatLng(map), { title: i });
+        marker.number = i;
+        random_category_index = getRandomObjectPropertyName(categories);
+        markers.addLayer(marker);
+        markers_category[random_category_index].push(marker);
+    }
+    var control = L.control.layers(null, overlayMaps, {
+            collapsed: false,
+            position: 'topright'
+        }
+    );
+    control.addTo(map);
+    map.addLayer(markers);
+    for (var row in control._layers) {
+        leaflet_meta[L.Util.stamp(control._layers[row].layer)] = control._layers[row].name;
+    }
+    map.on('overlayadd', function (a) {
+        var category_index = leaflet_meta[L.Util.stamp(a.layer)];
+        markers.addLayers(markers_category[category_index]);
+    });
+    map.on('overlayremove', function (a) {
+        var category_index = leaflet_meta[L.Util.stamp(a.layer)];
+        markers.removeLayers(markers_category[category_index]);
+    });
+}
+// http://stackoverflow.com/questions/8425580/picking-a-random-array-element-from-an-associative-array
+function getRandomObjectPropertyName(obj) {
+    var a = [], k;
+    for (k in obj) {
+        if (obj.hasOwnProperty(k)) {
+            a.push(k);
+        }
+    }
+    if (a.length === 0) {
+        return null; // or whatever default return you want for an empty object
+    }
+    return a[Math.floor(Math.random() * a.length)];
+    // or to return the actual value associated with the key:
+    return obj[ a[Math.floor(Math.random() * a.length)] ];
+}
+main_execute();
+</script>
+</body>
+</html>
