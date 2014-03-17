@@ -3,7 +3,7 @@ L.UniformControl
 
 Leaflet Control Widget augmented by uniform.js http://uniformjs.com/
 
-[Online Provided Here]: http://chriscalip.github.io/L.UniformControl/
+Online Demo Provided Here: http://chriscalip.github.io/L.UniformControl/
 
 Provides easy to theme control widgets.
 <img src="http://chriscalip.github.io/L.UniformControl/before-and-after-screenshot.png" alt="before-and-after" />
