@@ -1,4 +1,6 @@
-L.PrettyCheckable
+L.UniformControl
 =================
 
-Leaflet pretty checkboxes control
+Leaflet Control Widget augmented by uniform.js http://uniformjs.com/
+
+
