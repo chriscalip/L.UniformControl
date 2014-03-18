@@ -1,7 +1,9 @@
 L.UniformControl
 =================
 
-Leaflet Control Widget augmented by uniform.js http://uniformjs.com/
+Leaflet layer control with stylable checkboxes and radio buttons.
+
+Styable through uniform.js http://uniformjs.com/
 
 Online Demo Provided Here: http://chriscalip.github.io/L.UniformControl/
 
