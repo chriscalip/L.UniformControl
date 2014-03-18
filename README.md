@@ -4,18 +4,20 @@ L.UniformControl
 Leaflet layer control with stylable checkboxes and radio buttons.
 
 Styable through uniform.js http://uniformjs.com/
+
 Form elements with jQuery. Now with HTML5 attributes!
 
 Version 1.0
 
 Works well with Leaflet 0.7+
+
 Works well with jQuery 1.6+, but we've received patches and heard that this works with jQuery 1.3.
 
 Licensed under the [MIT License](http://www.opensource.org/licenses/mit-license.php)
 
 Online Demo Provided Here: http://chriscalip.github.io/L.UniformControl/
 
-Provides easy to theme control widgets.
+Screenshots : Leaflet Control before styling and after styling 
 <img src="http://chriscalip.github.io/L.UniformControl/before-and-after-screenshot.png" alt="before-and-after" />
 
 
