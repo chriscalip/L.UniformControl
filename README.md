@@ -35,6 +35,7 @@ Second, make sure you have Leaflet installed. Then you'll want to link to the Un
 
 Here's what your `<head>` tag contents should probably contain:
 
+```html
   <!-- Make sure your CSS file is listed before jQuery -->
 	<link rel="stylesheet" href="uniform.default.css" media="screen" />
   <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
@@ -57,5 +58,6 @@ Here's what your `<head>` tag contents should probably contain:
     // update the control widget to the specific theme.
     control.renderUniformControl();
   </script>
+```
 
 This relies upon a copy of jquery.uniform.js, uniform.default.css, UniformControl.js  and the various images all being available on your webserver.
